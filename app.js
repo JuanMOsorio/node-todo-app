@@ -1,5 +1,7 @@
 const { argv } = require('./config/yargs');
-const { create } = require('./to-do/to-do.js');
+const colors = require('colors');
+
+const toDo = require('./to-do/to-do.js');
 
 
 console.log(argv);
@@ -8,16 +10,28 @@ let comando = argv._[0];
 
 switch(comando) {
 
-  case 'crear':
-    let task = create(argv.description);
+  case 'create':
+    let task = toDo.create(argv.description);
     console.log(task);
     break;
-  case 'listar':
-    console.log(`Mostrar todas las tareas por hacer`);
+
+  case 'list':
+    let list = toDo.getList();
+
+    for (let task of list) {
+      console.log('==========Por Hacer==========='.green);
+      console.log(task.description);
+      console.log(`status: ${task.completed}`);
+      console.log('==========Por Hacer==========='.green);
+    }
+
     break;
-  case 'actualizar':
-    console.log(`Actualiza una tarea por hacer`);
+
+  case 'update':
+    let updated = toDo.update(argv.description, argv.completed);
+    console.log(updated);
     break;
+
   default:
     console.log('Comando no es reconocido');
 

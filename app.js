@@ -32,6 +32,12 @@ switch(comando) {
     console.log(updated);
     break;
 
+  case 'delete':
+    let deleted = toDo.deleteTask(argv.description)
+    console.log(deleted)
+
+    break;
+
   default:
     console.log('Comando no es reconocido');
 
